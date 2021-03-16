@@ -32,24 +32,25 @@
 
 # Feedforward gesprekken
 
-## Gesprek 1 (Datum: dd/mm/yyyy)
+## Gesprek 1 (Datum: 16/03/2021)
 
 Lector:
 
 Vragen voor dit gesprek:
 
-- [x] vraag 1:
+- [x] vraag 1: led of licht?
 - [ ] vraag 2:
 
 Dit is de feedback op mijn vragen.
 
-- feedback 1
-- feedback 2
+- feedback 1: licht beter specifieren.
+- feedback 2: nice to have's.
 
 Hier komt de feedforward: wat ga ik concreet doen?
 
-- [ ] ToDo 1
-- [ ] ToDo 2
+- [ ] ToDo 1: nice to have's er bij zetten.
+- [ ] ToDo 2: typfouten uit mijn FA01 halen.
+- [ ] ToDo 2: licht en warmtemelder beter specifieren.
 
 ## Gesprek 2 (Datum: dd/mm/yyyy)
 
