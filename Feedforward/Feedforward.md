@@ -38,7 +38,7 @@ Lector:
 
 Vragen voor dit gesprek:
 
-- [x] vraag 1: led of licht?
+- [x] vraag 1: led of licht gebruiken?
 - [ ] vraag 2:
 
 Dit is de feedback op mijn vragen.
@@ -48,9 +48,9 @@ Dit is de feedback op mijn vragen.
 
 Hier komt de feedforward: wat ga ik concreet doen?
 
-- [ ] ToDo 1: nice to have's er bij zetten.
-- [ ] ToDo 2: typfouten uit mijn FA01 halen.
-- [ ] ToDo 2: licht en warmtemelder beter specifieren.
+- [x] ToDo 1: nice to have's er bij zetten.
+- [x] ToDo 2: typfouten uit mijn FA01 halen.
+- [x] ToDo 2: licht en warmtemelder beter specifieren.
 
 ## Gesprek 2 (Datum: dd/mm/yyyy)
 
