@@ -1,4 +1,6 @@
+from os import stat
 from mysql.connector.cursor import SQL_COMMENT
+from mysql.connector.errors import DatabaseError
 from .Database import Database
 
 
@@ -21,3 +23,30 @@ class DataRepository:
         sql = "insert into project_one.meting(waarde,componentid) values(%s,2)"
         params = [waarde]
         return Database.execute_sql(sql,params)
+
+    @staticmethod
+    def add_meting_beweging(waarde):
+        sql = "insert into project_one.meting(waarde,componentid) values(%s,1)"
+        params = [waarde]
+        return Database.execute_sql(sql,params)
+    
+    @staticmethod 
+    def add_meting_rook(waarde):
+        sql = "insert into project_one.meting(waarde,componentid) values(%s,6)"
+        params = [waarde]
+        return Database.execute_sql(sql,params)
+
+    @staticmethod
+    def delete_data_beweging():
+        sql = "delete from project_one.meting where componentid = 1"
+        return Database.execute_sql(sql)
+
+    @staticmethod 
+    def delete_data_temp():
+        sql = "delete from project_one.meting where componentid = 2"
+        return Database.execute_sql(sql)
+
+    @staticmethod
+    def reset_AI():
+        sql = "ALTER TABLE meting AUTO_INCREMENT=0"
+        return Database.execute_sql(sql)

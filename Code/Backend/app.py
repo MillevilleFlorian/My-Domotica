@@ -16,7 +16,7 @@ GPIO.setmode(GPIO.BCM)
 spi = SPi()
 
 
-# Code voor Flask
+# Code voor Flask 
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'geheim!'
@@ -29,22 +29,37 @@ CORS(app)
 @socketio.on_error()        # Handles the default namespace
 def error_handler(e):
     print(e)
+    spi.closespi()
 
 
 # START een thread op. Belangrijk!!! Debugging moet UIT staan op start van de server, anders start de thread dubbel op
 # werk enkel met de packages gevent en gevent-websocket.
 def all_out():
     while True:
-        bytes = spi.read_bytes(0)
-        temperatuur = round((((bytes / 1023 * 3) - 0.5) * 100), 0)
-        print(temperatuur)
+        temp = spi.read_bytes(0)
+        beweging = spi.read_bytes(1)
+        rook = spi.read_bytes(2)
+
+        temperatuur = round((((temp / 1023 * 3)-0.5) * 100), 0)
+        # -----------------
         DataRepository.add_meting_temp(temperatuur)
+        if beweging > 10:
+            DataRepository.add_meting_beweging(beweging)
+        DataRepository.add_meting_rook(rook)
+        # -----------------
+        socketio.emit('B2F_data_beweging',{'beweging': beweging})
         socketio.emit('B2F_data_temp', {'temp': temperatuur})
+        socketio.emit('B2F_data_rook', {'rook': rook})
+        # -----------------
+        print(f'rook = {rook}')
+        print(f'beweging = {beweging}')
+        print(f'temperatuur = {temperatuur}')
+        print('------------')
         # print(waarde)
         time.sleep(1)
 
 
-thread = threading.Timer(5, all_out)
+thread = threading.Timer(1, all_out)
 thread.start()
 
 
