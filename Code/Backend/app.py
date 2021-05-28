@@ -1,6 +1,9 @@
+# from Code.Backend.help.KlasseLCD import LCD
 import time
+from typing import ItemsView
 from RPi import GPIO
 from help.KlasseSpi import SPi
+from help.KlasseLCD import LCD
 import threading
 
 from flask_cors import CORS
@@ -10,11 +13,30 @@ from repositories.DataRepository import DataRepository
 
 
 # Code voor Hardware
+vent = 26
+lamp = 20
+buzzer = 21
+
+teller = 0
+buzz = 0
+vorige_temp = 0
+lamp_stand = 0
+
+
 GPIO.setwarnings(False)
 GPIO.setmode(GPIO.BCM)
+GPIO.setup(vent,GPIO.OUT)
+GPIO.setup(buzzer,GPIO.OUT)
+GPIO.setup(lamp,GPIO.OUT)
+
+GPIO.output(vent,GPIO.LOW)
+GPIO.output(buzzer, GPIO.LOW)
+GPIO.output(lamp,GPIO.LOW)
+
 
 spi = SPi()
-
+lcd = LCD()
+lcd.init_LCD()
 
 # Code voor Flask 
 
@@ -23,7 +45,7 @@ app.config['SECRET_KEY'] = 'geheim!'
 socketio = SocketIO(app, cors_allowed_origins="*", logger=False,
                     engineio_logger=False, ping_timeout=1)
 
-CORS(app)
+CORS(app) 
 
 
 @socketio.on_error()        # Handles the default namespace
@@ -36,16 +58,22 @@ def error_handler(e):
 # werk enkel met de packages gevent en gevent-websocket.
 def all_out():
     while True:
+        global vorige_temp
+        global lamp_stand
+        global teller
+        global buzz
+        
         temp = spi.read_bytes(0)
         beweging = spi.read_bytes(1)
         rook = spi.read_bytes(2)
-
-        temperatuur = round((((temp / 1023 * 3)-0.5) * 100), 0)
+        temperatuur = round((((temp / 1023 * 3000)-500) /10), 1)
         # -----------------
-        DataRepository.add_meting_temp(temperatuur)
         if beweging > 10:
             DataRepository.add_meting_beweging(beweging)
         DataRepository.add_meting_rook(rook)
+        if temperatuur !=  vorige_temp:
+            DataRepository.add_meting_temp(temperatuur)
+        vorige_temp = temperatuur
         # -----------------
         socketio.emit('B2F_data_beweging',{'beweging': beweging})
         socketio.emit('B2F_data_temp', {'temp': temperatuur})
@@ -54,7 +82,12 @@ def all_out():
         print(f'rook = {rook}')
         print(f'beweging = {beweging}')
         print(f'temperatuur = {temperatuur}')
+        print(f'Ventilator = {teller}')
+        print(f'Buzzer = {buzz}')
+        print(f'Lamp = {lamp_stand}')
         print('------------')
+        # -----------------
+        lcd.send_message(f'Temp:{temperatuur} Graden')
         # print(waarde)
         time.sleep(1)
 
@@ -75,35 +108,50 @@ def hallo():
 
 @socketio.on('connect')
 def initial_connection():
+    global vorige_temp
     print('A new client connect')
     # # Send to the client!
     # vraag de status op van de lampen uit de DB
     temp = DataRepository.read_status_temp()
+    vorige_temp = temp
     # print(temp['waarde'])
     socketio.emit('B2F_data_temp', {'temp': temp['waarde']})
 
 
-@socketio.on('F2B_switch_light')
-def switch_light(data):
-    # Ophalen van de data
-    lamp_id = data['lamp_id']
-    new_status = data['new_status']
-    print(f"Lamp {lamp_id} wordt geswitcht naar {new_status}")
+# FUNCTIES
 
-    # Stel de status in op de DB
-    res = DataRepository.update_status_lamp(lamp_id, new_status)
+@socketio.on('F2B_vent_click')
+def switch_vent(data):
+    global teller
+    teller = data['stand']
+    if data['stand'] == 1:
+        GPIO.output(vent, GPIO.HIGH)
+        DataRepository.add_stand_vent(1)
+    else:
+        GPIO.output(vent,GPIO.LOW)
+        DataRepository.add_stand_vent(0)
 
-    # Vraag de (nieuwe) status op van de lamp en stuur deze naar de frontend.
-    data = DataRepository.read_status_lamp_by_id(lamp_id)
-    socketio.emit('B2F_verandering_lamp', {'lamp': data}, broadcast=True)
+@socketio.on('F2B_buzzer_click')
+def switch_buzzer(data):
+    global buzz
+    buzz = data['stand']
+    if data['stand'] == 1:
+        GPIO.output(buzzer, GPIO.HIGH)
+        DataRepository.add_stand_buzzer(1)
+    else:
+        GPIO.output(buzzer,GPIO.LOW)
+        DataRepository.add_stand_buzzer(0)
 
-    # Indien het om de lamp van de TV kamer gaat, dan moeten we ook de hardware aansturen.
-    if lamp_id == '3':
-        print(f"TV kamer moet switchen naar {new_status} !")
-        GPIO.output(led3, new_status)
-
-# ANDERE FUNCTIES
-
+@socketio.on('F2B_lamp_click')
+def switch_buzzer(data):
+    global lamp_stand
+    lamp_stand = data['stand']
+    if data['stand'] == 1:
+        GPIO.output(lamp, GPIO.HIGH)
+        DataRepository.add_stand_lamp(1)
+    else:
+        GPIO.output(lamp,GPIO.LOW)
+        DataRepository.add_stand_lamp(0)
 
 if __name__ == '__main__':
     socketio.run(app, debug=False, host='0.0.0.0')

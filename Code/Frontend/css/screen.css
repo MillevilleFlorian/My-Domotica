@@ -188,3 +188,20 @@ td {
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
 }
+
+
+.js-btn {
+  display: inline-block;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+  background-color: #007C89;
+  padding: 14px 25px;
+  color: white;
+}
+
+.js-btn:hover,
+.js-btn:focus {
+    color: #fff;
+    background: #4F95FF;
+}

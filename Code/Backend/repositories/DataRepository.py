@@ -35,6 +35,24 @@ class DataRepository:
         sql = "insert into project_one.meting(waarde,componentid) values(%s,6)"
         params = [waarde]
         return Database.execute_sql(sql,params)
+    
+    @staticmethod
+    def add_stand_vent(waarde):
+        sql = 'insert into project_one.meting(waarde,componentid) values(%s,4)'
+        params = [waarde]
+        return Database.execute_sql(sql,params)
+
+    @staticmethod
+    def add_stand_buzzer(waarde):
+        sql = 'insert into project_one.meting(waarde,componentid) values(%s,5)'
+        params = [waarde]
+        return Database.execute_sql(sql,params)
+
+    @staticmethod
+    def add_stand_lamp(waarde):
+        sql = 'insert into project_one.meting(waarde,componentid) values(%s,3)'
+        params = [waarde]
+        return Database.execute_sql(sql,params)
 
     @staticmethod
     def delete_data_beweging():

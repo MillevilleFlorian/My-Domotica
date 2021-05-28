@@ -10,8 +10,6 @@ class SPi:
         self.bus = bus
         self.device = device
         spi = spidev.SpiDev()
-        # GPIO.setmode(GPIO.BCM)
-        # GPIO.setup(21, GPIO.OUT)
 
     def read_bytes(self, channel):
         global spi
