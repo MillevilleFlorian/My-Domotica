@@ -6,7 +6,7 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Florian Milleville - HTML5 Boilerplate</title>
         <meta name="description" content="This is my HTML5 Boilerplate">
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0 "> -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#44c8f5">
 
         <link rel="icon" href="favicon.svg">
@@ -20,56 +20,54 @@
     </head>
 
     <body>
-        <header>
-            <h1>Hello world! This is my HTML5 boilerplate.</h1>
-            <p>A Boilerplate helps you build fast, robust, and adaptable web apps or sites. Kick-start your project with the
-                combined knowledge and effort of 100s of developers, all in one little package.</p>
+        <header class="o-row c-header o-row--fixed">
+            <div class="o-container">
+                <div class="c-header">
+                    <h1>My Domotica</h1>
+                    <div class="c-header__nav">
+                        <nav class="c-nav">
+                            <ul class="o-list c-nav__list">
+                                <li class="c-nav__item"><a class="c-nav__link" href="#Temperatuur">Temperatuur</a></li>
+                                <li class="c-nav__item"><a class="c-nav__link" href="#heading3">Heading 3</a></li>
+                                <li class="c-nav__item"><a class="c-nav__link" href="#list">List</a></li>
+                                <li class="c-nav__item"><a class="c-nav__link" href="#table">Table</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
         </header>
-        <nav>
-            <b>In this document:</b>
-            <ul>
-                <li><a href="#Temperatuur">Temperatuur</a></li>
-                <li><a href="#heading3">Heading 3</a></li>
-                <li><a href="#list">List</a></li>
-                <li><a href="#table">Table</a></li>
-            </ul>
-        </nav>
-        <p class="js-btn" id="vent">
-            Ventilator
-        </p>
-
-        <p class="js-btn" id="buzzer">
-            buzzer
-        </p>
-
-        <p class="js-btn" id="lamp">
-            Lamp
-        </p>
-
-        <h2 id="Temperatuur">
-            Temperatuur
-        </h2>
-        <div class="js-temp">
-            <p id ="paragraph_temp">
+        <section class="o-row o-row--body">
+            <p class="c-btn js-vent" id="vent">
+                Ventilator
+            </p>
+    
+            <p class="c-btn js-buzz" id="buzzer">
+                buzzer
+            </p>
+    
+            <p class="c-btn js-lamp" id="lamp">
+                Lamp
+            </p>
+            <h2 id="Temperatuur">
+                Temperatuur
+            </h2>
+            <p id ="paragraph_temp" class="c-data js-temp">
             Temperatuur = ?
             </p>
-        </div> 
-        <h2 id="Beweging">
-            Bewegingssensor
-        </h2>
-        <div class="js-bew">
-            <p id ="paragraph_bew">
+            <h2 id="Beweging">
+                Bewegingssensor
+            </h2>
+            <p class="js-bew c-data">
             Beweging = 0
             </p>
-        </div>
-        <h2 id="Rook">
-            Rooksensor
-        </h2>
-        <div class="js-rook">
-            <p id ="paragraph_rook">
+            <h2 id="Rook">
+                Rooksensor
+            </h2>
+            <p id ="paragraph_rook" class="js-rook c-data">
             Rook = ?
             </p>
-        </div>
+        </section>
         <figure>
             <img src="img/yawning-cat.jpeg" alt="This is a picture of a yawning cat">
             <figcaption>Yawning cat. Photo by Martina Misar</figcaption>
@@ -108,7 +106,7 @@
                 <th>Population</th>
                 <th>Language</th>
             </tr>
-            <tr class="odd">
+            <tr>
                 <td>USA</td>
                 <td>Washington, D.C.</td>
                 <td>309 milion</td>
@@ -120,7 +118,7 @@
                 <td>9 milion</td>
                 <td>Swedish</td>
             </tr>
-            <tr class="odd">
+            <tr>
                 <td>France</td>
                 <td>Paris</td>
                 <td>9 milion</td>

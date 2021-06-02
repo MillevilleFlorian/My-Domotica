@@ -9,17 +9,17 @@ html {
   line-height: 1.5;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #111;
-  padding: 24px 24px 0;
+  /* padding: 24px 24px 0; */
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
+  background-color: #f5f3f0;
 }
 
-body {
-  max-width: 42em;
-  margin: 0 auto;
-}
+/* body {
+
+} */
 
 /*
  * Remove text-shadow in selection highlight:
@@ -139,16 +139,35 @@ a:focus {
 table {
   width: 100%;
   border-spacing: 0;
+  margin-bottom: 20px;
 }
 
 th {
   text-align: left;
+  /* border-bottom: 20px solid #F5F3F0; */
 }
 
 th,
 td {
-  padding: 4px 8px;
-  border-bottom: 1px solid gainsboro;
+  padding: 4px 8px 20px;
+}
+
+th:first-child,
+td:first-child {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+th:last-child,
+td:last-child {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+tr {
+  background-color: #d41401;
+  color: white;
+  margin-bottom: 20px;
 }
 
 .odd {
@@ -172,13 +191,13 @@ td {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  html {
+  /* html {
     padding: 48px 48px 24px;
   }
   h1 {
     font-size: 58px;
     line-height: 64px;
-  }
+  } */
 }
 
 /* Large devices (landscape tablets, desktops, 992px and up) */
@@ -189,19 +208,149 @@ td {
 @media (min-width: 1200px) {
 }
 
-
-.js-btn {
+.c-btn {
   display: inline-block;
   font-size: 16px;
   line-height: 22px;
   font-weight: 600;
-  background-color: #007C89;
+  background-color: #007c89;
   padding: 14px 25px;
   color: white;
 }
 
-.js-btn:hover,
-.js-btn:focus {
-    color: #fff;
-    background: #4F95FF;
+.c-btn:hover,
+.c-btn:focus {
+  color: #fff;
+  background: #4f95ff;
+}
+
+.c-data {
+  display: inline-block;
+  background-color: #d41401;
+  padding: 20px 20px;
+  color: white;
+  border-radius: 20px;
+}
+
+.o-container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 90em; /* 90 * 16px = 1440px */
+}
+
+.o-row {
+  padding: 24px 24px 0;
+  display: flow-root;
+  margin: auto;
+}
+
+.o-row--body {
+  bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .o-row {
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+}
+
+.o-row--fixed {
+  position: sticky;
+  top: 0;
+  display: flex;
+  width: 100%;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/*------------------------------------*\
+  #COMPONENTS
+\*------------------------------------*/
+
+/*
+    Component: Header
+    ---
+    Main header of the website
+*/
+
+.c-header {
+  color: white;
+  background-color: #d41401;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .c-header__nav {
+    display: block;
+  }
+
+  .c-header__nav {
+    margin-right: 24px;
+
+    /* solution 1 */
+    /* margin-left: auto; */
+
+    /* solution 2 */
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+}
+
+/*
+    Component: Nav
+    ---
+    Main navigation
+*/
+
+.c-nav {
+  font-size: 16px;
+  line-height: 22px;
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.c-nav__link {
+  text-decoration: none;
+  display: block;
+}
+
+.c-nav__link,
+.c-nav__link:visited,
+.c-nav__link:active {
+  color: white;
+}
+
+.c-nav__link:hover,
+.c-nav__link:focus {
+  color: #3385ff;
+}
+
+@media (min-width: 1024px) {
+  .c-nav__list {
+    display: flex;
+  }
+
+  .c-nav__item--cta {
+    margin-left: 20px;
+  }
+
+  .c-nav__link {
+    padding: 8px 20px;
+  }
+}
+
+/*
+    Objects: List
+    ---
+    Small reusable object to remove default list styling from lists
+*/
+
+.o-list {
+  list-style: none;
+  padding: 0;
 }

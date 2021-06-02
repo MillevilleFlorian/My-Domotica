@@ -1,7 +1,7 @@
 const lanIP = `${window.location.hostname}:5000`;
 const socket = io(`http://${lanIP}`);
 
-let htmlBew,htmlRook, htmlVent,htmlLamp, htmlBuzz
+let htmlBew,htmlRook, htmlVent,htmlLamp, htmlBuzz, htmlTemp
 let teller = 0
 let buzzer = 0
 let lamp = 0
@@ -45,7 +45,6 @@ const listenToSocket = function () {
     console.log("verbonden met socket webserver");
   });
   socket.on("B2F_data_temp", function(jsonobject) {
-    let htmlTemp = document.getElementById('paragraph_temp')
     htmlTemp.innerHTML = `temperatuur = ${jsonobject.temp}°C`
   })
   socket.on("B2F_data_beweging", function(jsonobject) {
@@ -61,11 +60,12 @@ const listenToSocket = function () {
 };
 
 document.addEventListener("DOMContentLoaded", function () {
-  htmlBew = document.getElementById('paragraph_bew')
-  htmlRook = document.getElementById('paragraph_rook')
-  htmlVent = document.getElementById('vent')
-  htmlBuzz = document.getElementById('buzzer')
-  htmlLamp = document.getElementById('lamp')
+  htmlTemp = document.querySelector('.js-temp')
+  htmlBew = document.querySelector('.js-bew')
+  htmlRook = document.querySelector('.js-rook')
+  htmlVent = document.querySelector('.js-vent')
+  htmlBuzz = document.querySelector('.js-buzz')
+  htmlLamp = document.querySelector('.js-lamp')
   console.info("DOM geladen");
   listenToUI();
   listenToSocket();

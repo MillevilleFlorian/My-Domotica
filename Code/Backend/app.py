@@ -66,7 +66,7 @@ def all_out():
         temp = spi.read_bytes(0)
         beweging = spi.read_bytes(1)
         rook = spi.read_bytes(2)
-        temperatuur = round((((temp / 1023 * 3000)-500) /10), 1)
+        temperatuur = round((((temp / 1023 * 3200)-500) /10), 1)
         # -----------------
         if beweging > 10:
             DataRepository.add_meting_beweging(beweging)
