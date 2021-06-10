@@ -19,6 +19,16 @@ class DataRepository:
         return Database.get_one_row(sql)
 
     @staticmethod
+    def read_all_bew():
+        sql = 'select date_format(tijd,"%H:%i  %d/%m/%y") as tijd from project_one.meting where componentid = 1 order by metingid desc'
+        return Database.get_rows(sql)
+
+    @staticmethod
+    def read_all_alarm():
+        sql = 'select date_format(tijd,"%H:%i  %d/%m/%y") as tijd from project_one.meting where componentid = 5 and waarde = 1 order by metingid desc'
+        return Database.get_rows(sql)
+
+    @staticmethod
     def add_meting_temp(waarde):
         sql = "insert into project_one.meting(waarde,componentid) values(%s,2)"
         params = [waarde]

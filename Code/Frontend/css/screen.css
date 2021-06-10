@@ -1,3 +1,29 @@
+/*------------------------------------*\
+  #FONTS
+\*------------------------------------*/
+
+@font-face {
+  font-family: "HK Grotesk Web";
+  font-weight: 200;
+  src: url("../fonts/hkgrotesk-light-webfont.woff") format("woff"),
+       url("../fonts/hkgrotesk-light-webfont.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "HK Grotesk Web";
+  font-weight: 400;
+  src: url("../fonts/hkgrotesk-regular-webfont.woff") format("woff"),
+       url("../fonts/hkgrotesk-regular-webfont.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "HK Grotesk Web";
+  font-weight: 600;
+  src: url("../fonts/hkgrotesk-medium-webfont.woff") format("woff"),
+       url("../fonts/hkgrotesk-medium-webfont.woff2") format("woff2");
+}
+
+
 /*
     Elements: Page
     ---
@@ -7,7 +33,8 @@
 html {
   font-size: 16px;
   line-height: 1.5;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; */
+  font-family: "HK Grotesk Web", sans-serif;
   color: #111;
   /* padding: 24px 24px 0; */
   scroll-behavior: smooth;
@@ -15,6 +42,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
   background-color: #f5f3f0;
+}
+
+@media (min-width: 768px) {
+  html {
+      font-size: 20px;
+      line-height: 1.6;
+  }
 }
 
 /* body {
@@ -51,7 +85,6 @@ img {
 */
 
 h1 {
-  font-family: 'Times New Roman', serif;
   font-size: 36px;
   font-weight: normal;
   line-height: 40px;
@@ -137,9 +170,12 @@ a:focus {
 }
 
 table {
+  max-width: 300px;
   width: 100%;
   border-spacing: 0;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 th {
@@ -150,6 +186,7 @@ th {
 th,
 td {
   padding: 4px 8px 20px;
+  margin-bottom: 100px;
 }
 
 th:first-child,
@@ -162,12 +199,14 @@ th:last-child,
 td:last-child {
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
+  text-align: right;
 }
 
 tr {
   background-color: #d41401;
   color: white;
   margin-bottom: 20px;
+  border-bottom: oldlace;
 }
 
 .odd {
@@ -225,11 +264,15 @@ tr {
 }
 
 .c-data {
-  display: inline-block;
+  display: block;
   background-color: #d41401;
-  padding: 20px 20px;
+  padding: 0;
   color: white;
   border-radius: 20px;
+  text-align: center;
+  max-width: 200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .o-container {
@@ -243,6 +286,7 @@ tr {
   padding: 24px 24px 0;
   display: flow-root;
   margin: auto;
+  text-align: center;
 }
 
 .o-row--body {
@@ -251,18 +295,18 @@ tr {
 
 @media (min-width: 768px) {
   .o-row {
-    padding-left: 48px;
-    padding-right: 48px;
+    padding-left: 100px;
+    padding-right: 100px;
   }
-}
 
-.o-row--fixed {
-  position: sticky;
-  top: 0;
-  display: flex;
-  width: 100%;
-  padding-left: 24px;
-  padding-right: 24px;
+  .o-row--fixed {
+    position: sticky;
+    top: 0;
+    display: flex;
+    width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+  }
 }
 
 /*------------------------------------*\
@@ -281,15 +325,19 @@ tr {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  text-align: center;
 }
 
+.c-header__nav {
+  display: none;
+}
 @media (min-width: 1024px) {
   .c-header__nav {
     display: block;
   }
 
   .c-header__nav {
-    margin-right: 24px;
+    margin-right: 100px;
 
     /* solution 1 */
     /* margin-left: auto; */
@@ -298,6 +346,11 @@ tr {
     display: flex;
     flex-grow: 1;
     justify-content: flex-end;
+  }
+
+  .c-header {
+    padding-left: auto;
+    padding-right: auto;
   }
 }
 
