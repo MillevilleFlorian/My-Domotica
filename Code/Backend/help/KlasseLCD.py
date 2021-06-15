@@ -85,17 +85,18 @@ class LCD:
         time.sleep(DELAY)
 
     def send_message(self,message):
-        self.send_instruction(0x1)
-        leng = 0
+        # self.send_instruction(0x1)
+        # leng = 0
         for char in message:
-            leng += 1
-            if leng > 16:
-                bit_op = 0x80 | 0x40
-                self.send_instruction(bit_op)
-                self.send_character(ord(char))
-                leng = 0
-            else:
-                self.send_character(ord(char))
+            self.send_character(ord(char))
+            # leng += 1
+            # if leng > 16:
+            #     bit_op = 0x80 | 0x40
+            #     self.send_instruction(bit_op)
+            #     self.send_character(ord(char))
+            #     leng = 0
+            # else:
+            #     self.send_character(ord(char))
 
     def init_LCD(self):
         self.send_instruction(0b00111000)  # function set

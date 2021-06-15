@@ -19,14 +19,19 @@ class DataRepository:
         return Database.get_one_row(sql)
 
     @staticmethod
-    def read_all_bew():
-        sql = 'select date_format(tijd,"%H:%i  %d/%m/%y") as tijd from project_one.meting where componentid = 1 order by metingid desc'
+    def read_all_rook():
+        sql = 'select date_format(tijd,"%H:%i  %d/%m/%y") as tijd from project_one.meting where componentid = 6 order by metingid desc'
         return Database.get_rows(sql)
 
     @staticmethod
     def read_all_alarm():
         sql = 'select date_format(tijd,"%H:%i  %d/%m/%y") as tijd from project_one.meting where componentid = 5 and waarde = 1 order by metingid desc'
         return Database.get_rows(sql)
+
+    @staticmethod
+    def read_gew_temp():
+        sql = 'select waarde FROM project_one.meting where componentid = 7 order by metingid desc limit 1'
+        return Database.get_one_row(sql)
 
     @staticmethod
     def add_meting_temp(waarde):
@@ -61,6 +66,12 @@ class DataRepository:
     @staticmethod
     def add_stand_lamp(waarde):
         sql = 'insert into project_one.meting(waarde,componentid) values(%s,3)'
+        params = [waarde]
+        return Database.execute_sql(sql,params)
+        
+    @staticmethod
+    def add_gew_temp(waarde):
+        sql = 'insert into project_one.meting(waarde,componentid) values(%s,7)'
         params = [waarde]
         return Database.execute_sql(sql,params)
 

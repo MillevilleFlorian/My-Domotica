@@ -1,7 +1,7 @@
 const lanIP = `${window.location.hostname}:5000`;
 const socket = io(`http://${lanIP}`);
 
-let htmlBew, htmlRook, htmlVent, htmlLamp, htmlBuzz, htmlTemp, htmlTabBew, htmlTabAlarm;
+let htmlBew, htmlRook, htmlVent, htmlLamp, htmlBuzz, htmlTemp, htmlTabRook, htmlTabAlarm, htmlGewTemp, htmlInput, htmlSubmit;
 let teller = 0;
 let buzzer = 0;
 let lamp = 0;
@@ -12,14 +12,14 @@ const clearClassList = function (el) {
 };
 
 const listenToUI = function () {
-  htmlVent.addEventListener('click', function () {
-    if (teller == 0) {
-      teller = 1;
-    } else {
-      teller = 0;
-    }
-    socket.emit('F2B_vent_click', { stand: teller });
-  });
+  // htmlVent.addEventListener('click', function () {
+  //   if (teller == 0) {
+  //     teller = 1;
+  //   } else {
+  //     teller = 0;
+  //   }
+  //   socket.emit('F2B_vent_click', { stand: teller });
+  // });
 
   htmlBuzz.addEventListener('click', function () {
     if (buzzer == 0) {
@@ -57,17 +57,17 @@ const listenToSocket = function () {
   socket.on('B2F_data_rook', function (jsonobject) {
     htmlRook.innerHTML = `Rooksensor data = ${jsonobject.rook}`;
   });
-  socket.on('B2F_data_tab_bew', function (jsonobject) {
+  socket.on('B2F_data_tab_rook', function (jsonobject) {
     htmlString = '';
-    for (const beweging of jsonobject) {
+    for (const rook of jsonobject) {
       htmlString += `<table>
       <tr>
-          <th>Beweging</th>
-          <th>${beweging.tijd}</th>
+          <th>Rook</th>
+          <th>${rook.tijd}</th>
       </tr>
   </table>`;
     }
-    htmlTabBew.innerHTML = htmlString;
+    htmlTabRook.innerHTML = htmlString;
   });
   socket.on('B2F_data_tab_alarm', function (jsonobject) {
     htmlString = '';
@@ -81,6 +81,17 @@ const listenToSocket = function () {
     }
     htmlTabAlarm.innerHTML = htmlString;
   });
+
+  socket.on('B2F_data_gew_temp', function(jsonobject) {
+    htmlGewTemp.innerHTML = `${jsonobject.waarde}`
+    htmlInput.value = `${jsonobject.waarde}`
+  })
+
+  htmlSubmit.addEventListener('click', function() {
+    waarde = htmlInput.value
+    socket.emit('F2B_gew_temp', waarde)
+    htmlGewTemp.innerHTML = `${waarde}`
+  })
 };
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -90,8 +101,11 @@ document.addEventListener('DOMContentLoaded', function () {
   htmlVent = document.querySelector('.js-vent');
   htmlBuzz = document.querySelector('.js-buzz');
   htmlLamp = document.querySelector('.js-lamp');
-  htmlTabBew = document.querySelector('.js-tab--bew');
+  htmlTabRook = document.querySelector('.js-tab--rook');
   htmlTabAlarm = document.querySelector('.js-tab--alarm');
+  htmlGewTemp = document.querySelector('.js-gewTemp')
+  htmlInput = document.querySelector('.js-input')
+  htmlSubmit = document.querySelector('.js-submit')
   console.info('DOM geladen');
   listenToUI();
   listenToSocket();

@@ -28,9 +28,7 @@
                         <nav class="c-nav">
                             <ul class="o-list c-nav__list">
                                 <li class="c-nav__item"><a class="c-nav__link" href="#Temperatuur">Temperatuur</a></li>
-                                <li class="c-nav__item"><a class="c-nav__link" href="#beweging">beweging</a></li>
-                                <li class="c-nav__item"><a class="c-nav__link" href="#alarm">alarm</a></li>
-                                <li class="c-nav__item"><a class="c-nav__link" href="#table">Table</a></li>
+                                <li class="c-nav__item"><a class="c-nav__link" href="#rook">Tabel</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -39,12 +37,12 @@
         </header>
         <section class="o-row o-row--body">
             <div class="o-container">
-                <p class="c-btn js-vent" id="vent">
+                <!-- <p class="c-btn js-vent" id="vent">
                     Ventilator
-                </p>
+                </p> -->
         
                 <p class="c-btn js-buzz" id="buzzer">
-                    buzzer
+                    Alarm!
                 </p>
         
                 <p class="c-btn js-lamp" id="lamp">
@@ -55,8 +53,24 @@
                         Temperatuur
                     </h2>
                     <p id ="paragraph_temp" class="js-temp">
-                    Temperatuur = ?
+                        ?
                     </p>
+                </div>
+
+                <div class="c-data">
+                    <h2 id="Gewenste_temp">
+                        Gewenste temperatuur
+                    </h2>
+                    <p class="js-gewTemp">
+                        ?
+                    </p>
+                </div>
+                <div class="c-data">
+                    <h2>
+                        Instellen Gewenste Temperatuur
+                    </h2>
+                    <input type="number" min='10' max='35' class="c-input js-input" value="14">
+                    <input type="submit" class="c-submit js-submit">
                 </div>
                 <!-- <h2 id="Beweging">
                     Bewegingssensor
@@ -73,23 +87,33 @@
             </div>
         </section>
         <section class="o-row o-row--body">
-            <h2 id="beweging">Beweging</h2>
-            <div class="js-tab--bew">
-                <table>
-                    <tr>
-                        <th>Beweging</th>
-                        <th>Tijd</th>
-                    </tr>
-                </table>
-            </div>
-            <h2 id="alarm">Alarm</h2>
-            <div class="js-tab--alarm">
-                <table>
-                    <tr>
-                        <th>Alarm</th>
-                        <th>Tijd</th>
-                    </tr>
-                </table>
+            <div>
+                <div class="o-section o-section--lg">
+                    <div class="o-layout">
+                        <div class="o-layout__item u-1-of-2-bp3">
+                            <h2 id="rook">Rook</h2>
+                            <div class="js-tab--rook">
+                                <table>
+                                    <tr>
+                                        <th>Rook</th>
+                                        <th>Tijd</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="o-layout__item u-1-of-2-bp3">
+                            <h2 id="alarm">Alarm</h2>
+                            <div class="js-tab--alarm">
+                                <table>
+                                    <tr>
+                                        <th>Alarm</th>
+                                        <th>Tijd</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
         <hr>
